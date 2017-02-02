@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<!-- basic config -->
+<meta charset="UTF-8">
+<title>Mediataion Timer</title>
+
+<!-- mdl -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+<!-- polyfill-dialog -->
+<link rel="stylesheet" href="assets/css/dialog-polyfill.css">
+<script defer src="assets/js/dialog-polyfill.js"></script>
+
+<!-- timer -->
+<script defer src="assets/js/easytimer.js"></script>
+
+<!-- noSleep -->
+<script defer src="assets/js/NoSleep.js"></script>
+
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<!-- js -->
+<script src="assets/js/main.js"></script>
+
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+</head>
+
+<body>
+
+<div class="wrapper-Page">
+
+  <div class="mdl-grid ">
+    <div class="mdl-cell mdl-cell--12-col">
+      <ul id="phaseList">
+        <li class="ui-state-default">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--9-col mdl-cell--5-col-tablet mdl-cell--2-col-phone lu-marginNone">
+              <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
+                <input class="mdl-textfield__input" type="text" id="" placeholder="Phase Name">
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
+              <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
+                <input class="mdl-textfield__input lu-sonToCenter" type="text" id="" placeholder="Time">
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
+              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored lu-clearButton">
+                <i class="material-icons">clear</i>
+              </button>
+            </div>
+          </div>
+        </li>
+        <li class="ui-state-default">Item 2</li>
+        <li class="ui-state-default">Item 3</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>

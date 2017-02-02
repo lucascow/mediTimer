@@ -18,6 +18,9 @@
 <!-- timer -->
 <script defer src="assets/js/easytimer.js"></script>
 
+<!-- noSleep -->
+<script defer src="assets/js/NoSleep.js"></script>
+
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
@@ -47,35 +50,28 @@
       </button>
     </div>
   </div>
+  <!-- Preset -->
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--11-col mdl-cell--7-col-tablet mdl-cell--3-col-phone mdl-cell--middle">
+      <span class="lu-presetLabel">Preset:</span>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect lu-tabButton" id="presetMeditation">
+        Meditation
+      </button>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect lu-tabButton " id="presetRun">
+        Run
+      </button>
+    </div>
+    <div class="mdl-cell mdl-cell--1-col">
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect lu-tabButton mdl-button--accent" id="clearListButton">
+        Clear
+      </button>
+    </div>
+  </div>
   <!-- List -->
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col">
-      <ul id="sortable">
-        <li class="ui-state-default">
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--9-col mdl-cell--5-col-tablet mdl-cell--2-col-phone lu-marginNone">
-              <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                <input class="mdl-textfield__input" type="text" id="" placeholder="Phase">
-              </div>
-            </div>
-            <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
-              <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="" placeholder="Min">
-              </div>
-            </div>
-            <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
-              <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored lu-clearButton">
-                <i class="material-icons">clear</i>
-              </button>
-            </div>
-          </div>
-        </li>
-        <li class="ui-state-default">Item 2</li>
-        <li class="ui-state-default">Item 3</li>
-        <li class="ui-state-default">Item 4</li>
-        <li class="ui-state-default">Item 5</li>
-        <li class="ui-state-default">Item 6</li>
-        <li class="ui-state-default">Item 7</li>
+      <ul id="phaseList">
+
       </ul>
     </div>
   </div>
@@ -88,24 +84,51 @@
       </h3>
     </div>
   </div>
-  <div class="mdl-grid">
+
+  <!-- <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col lu-sonToCenter">
-      <button id="startButton">Start</button>
+      <button id="startButton#">Start</button>
       <button id="pauseButton" >Pause</button>
-      <button id="stopButton">Stop</button>
+      <button id="soundButton">Sound</button>
     </div>
-  </div>
+  </div> -->
 
   <!-- control -->
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--2-col mdl-cell--5-offset-desktop mdl-cell--3-offset-tablet mdl-cell--1-offset-phone lu-sonToCenter">
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-offset-desktop mdl-cell--2-offset-tablet  lu-sonToCenter">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent primeButton" id="startButton">
         Start/End
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary primeButton" id="resetButton">
+        Reset
       </button>
     </div>
   </div>
 
+  <!-- functionAdv -->
+  <div class="mdl-grid lu-functionAdv">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle">
+      <h6>Note: You can simply re-order the list below by dragging</h6>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle">
+      <h6>Note: time is in hour:min:seconds format</h6>
+    </div>
+  </div>
+
   <!-- footer -->
+  <div class="mdl-grid lu-footer">
+    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-cell--middle lu-sonToCenter">
+      <h5>Lucas, 2017</h5>
+      <a target="_blank" href="https://github.com/lucascow/meditationTimer">
+        <i class="material-icons">web</i>
+      </a>
+      <a target="_blank" href="mailto:lucasyu8.developer@gmail.com">
+        <i class="material-icons">email</i>
+      </a>
+    </div>
+  </div>
+
+  <!-- no content -->
 
   <!-- hidden dialog -->
   <dialog id="setTimeDialog">
@@ -117,7 +140,7 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input">
+          <input class="mdl-textfield__input lu-phaseTitle" id="phaseNameInput">
           <label class="mdl-textfield__label" for="">Phase Name</label>
         </div>
       </div>
@@ -125,17 +148,17 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--2-col-phone lu-sonToCenter">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label lu-timePicker">
-          <input class="mdl-textfield__input" maxlength="2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="00">
+          <input class="mdl-textfield__input" maxlength="2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="00" id="hourInput">
           <label class="mdl-textfield__label" for="">Hour</label>
         </div>
         <!-- <span class="lu-marginRight5px">H</span> -->
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label lu-timePicker">
-          <input class="mdl-textfield__input" maxlength="2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="00">
+          <input class="mdl-textfield__input" maxlength="2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="00" id="minuteInput">
           <label class="mdl-textfield__label" for="">Minute</label>
         </div>
         <!-- <span class="lu-marginRight5px">M</span> -->
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label lu-timePicker">
-          <input class="mdl-textfield__input" maxlength="2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="00">
+          <input class="mdl-textfield__input" maxlength="2" type="text" pattern="-?[0-9]*(\.[0-9]+)?" value="00" id="secondInput">
           <label class="mdl-textfield__label" for="">Second</label>
         </div>
         <!-- <span class="lu-marginRight5px">S</span> -->
@@ -143,12 +166,12 @@
     </div>
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone lu-sonToCenter">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="closeDialogButton">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="confirmDialogButton">
           Confirm
         </button>
       </div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone lu-sonToCenter">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="confirmDialogButton">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="closeDialogButton">
           Close
         </button>
       </div>
