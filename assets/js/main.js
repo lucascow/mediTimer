@@ -1,10 +1,11 @@
 
 
 $( document ).ready(function() {
-  
+
   var timer;
   var phaseListData;
-  var remindAudio = $("#remindAudio")[0];
+  //var remindAudio = $("#remindAudio")[0];
+  var remindAudio = new Audio("assets/media/newMessage.mp3");
 
   //input
   $("input[type='text']").on('click', function () {
