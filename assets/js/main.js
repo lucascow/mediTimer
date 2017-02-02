@@ -37,8 +37,8 @@ $( document ).ready(function() {
 
     phaseName = phaseName.length==1?'0'+phaseName:phaseName;
     hour = hour.length==1?'0'+hour:hour;
-    minute = phaseName.length==1?'0'+minute:minute;
-    second = phaseName.length==1?'0'+second:second;
+    minute = minute.length==1?'0'+minute:minute;
+    second = second.length==1?'0'+second:second;
 
     $("#phaseList").append
     (
@@ -120,7 +120,7 @@ $( document ).ready(function() {
             if(timer.getTotalTimeValues().seconds == phaseListData[0].phaseSetTimeInSecondOverall)
             {
               remindAudio.play();
-              console.log(timer.getTotalTimeValues());
+              //console.log(timer.getTotalTimeValues());
               $("#" + phaseListData[0].phaseSetId).addClass('lu-phaseSet-timePass');
 
               phaseListData.splice(0, 1); //remove the first one
@@ -146,42 +146,53 @@ $( document ).ready(function() {
     }
     else
     {
-      timer.pause();
-      timerStart = false;
       //repeat 1
-      if(remindAudio.played.length > 0)
-      {
-        remindAudio.loop = false;
-        remindAudio.load();
-      }
       if(timeIsUp == true)
       {
+        timer.stop();
+        $('#timeBoard').html("00:00:00");
+        timeIsUp = false;
+        timerStart = false;
+
         $('#startButton').removeClass('timeIsUp'); //remove class anyway
         $('.lu-phaseSet').removeClass('lu-phaseSet-timePass');
         $("input").attr("disabled", false);
         $("button").attr("disabled", false);
-        timeIsUp = false;
+
+        if(remindAudio.played.length > 0)
+        {
+          remindAudio.loop = false;
+          remindAudio.load();
+        }
+      }
+      else
+      {
+        timer.pause();
+        timerStart = false;
       }
     }
   });
-  $('#resetButton').click(function () {
-      timer.stop();
-      $('#timeBoard').html("00:00:00");
-      timerStart = false;
-      //repeat 1
-      if(remindAudio.played.length > 0)
-      {
-        remindAudio.loop = false;
-        remindAudio.load();
-      }
+  $('#resetButton').click(function ()
+  {
       if(timeIsUp == true || true)
       {
+        timer.stop();
+        $('#timeBoard').html("00:00:00");
+        timeIsUp = false;
+        timerStart = false;
+
         $('#startButton').removeClass('timeIsUp'); //remove class anyway
         $('.lu-phaseSet').removeClass('lu-phaseSet-timePass');
         $("input").attr("disabled", false);
         $("button").attr("disabled", false);
-        timeIsUp = false;
+
+        if(remindAudio.played.length > 0)
+        {
+          remindAudio.loop = false;
+          remindAudio.load();
+        }
       }
+
   });
   timer.addEventListener('secondsUpdated', function (e) {
       $('#timeBoard').html(timer.getTimeValues().toString());
