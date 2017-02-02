@@ -1,5 +1,8 @@
 # meditationTimer
 
+### To use the timer, please visit:
+https://lucascow.github.io/meditationTimer/
+
 ### Stuff used to make this:
 
  * [richtr/NoSleep.js](https://github.com/richtr/NoSleep.js)
