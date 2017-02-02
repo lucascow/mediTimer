@@ -1,11 +1,13 @@
-var timer;
-var phaseListData;
-var remindAudio = new Audio('assets/media/newMessage.mp3');
+
 
 $( document ).ready(function() {
+  
+  var timer;
+  var phaseListData;
+  var remindAudio = $("#remindAudio")[0];
 
   //input
-  $("input[type='text']").click(function () {
+  $("input[type='text']").on('click', function () {
      $(this).select();
   });
 
@@ -66,6 +68,14 @@ $( document ).ready(function() {
     );
 
     setTimeDialog.close();
+    $('.lu-clearButton').click(function () {
+        $(this).parents("li").remove();
+    });
+    $("#phaseNameInput").val("");
+    $("#hourInput").val("00");
+    $("#minuteInput").val("00");
+    $("#secondInput").val("00");
+
   });
   //setTimeDialog.show();
 
@@ -87,88 +97,105 @@ $( document ).ready(function() {
   var lastOverallTime;
 
   $('#startButton').click(function () {
-    if(timerStart == false)
+    if ($(".lu-phaseSet").length == 0)
     {
-      //step 1
-      phaseListData = new Array();
-      lastOverallTime = 0;
-      $( ".lu-phaseSet" ).each(function() {
-        phaseSetId = $( this ).attr("id");
-        phaseSetName = $( this ).find('.lu-phaseTitle').val();
-        phaseSetTime = $( this ).find('.lu-phaseTime').val();
-        phaseSetTimeArray = phaseSetTime.split(":");
-        phaseSetTimeInSecond = Number(phaseSetTimeArray[0])*60*60  + Number(phaseSetTimeArray[1])*60 + Number(phaseSetTimeArray[2]);
-        phaseSetTimeInSecondOverall = phaseSetTimeInSecond + lastOverallTime;
-        lastOverallTime = phaseSetTimeInSecondOverall;
-        phaseListData.push
-        (
-          {
-            "phaseSetId": phaseSetId,
-            "phaseSetTimeInSecond": phaseSetTimeInSecond,
-            "phaseSetTimeInSecondOverall": phaseSetTimeInSecondOverall
-          }
-        );
-      });
-
-      //step 2
-      timer.start({
-          // precision: 'secondTenths',
-          // startValues: {seconds: 90},
-          // target: {seconds: 120},
-          callback: function (values)
-          {
-            if(timer.getTotalTimeValues().seconds == phaseListData[0].phaseSetTimeInSecondOverall)
-            {
-              remindAudio.play();
-              //console.log(timer.getTotalTimeValues());
-              $("#" + phaseListData[0].phaseSetId).addClass('lu-phaseSet-timePass');
-
-              phaseListData.splice(0, 1); //remove the first one
-              if(phaseListData.length == 0)
-              {
-                console.log("time Is Up");
-                //step 1: stop the timer
-                timer.pause();
-                timeIsUp = true;
-                //step 2: repeat the sound
-                remindAudio.loop = true;
-                remindAudio.play();
-                $('#startButton').addClass('timeIsUp'); //remove class anyway
-              }
-            }
-          }
-      });
-      timerStart = true;
-      //step 3
-      $("input").attr("disabled", true);
-      $("button").attr("disabled", true);
-      $(".primeButton").attr("disabled", false);
-    }
-    else
-    {
-      //repeat 1
-      if(timeIsUp == true)
+      if(timerStart == false)
       {
-        timer.stop();
-        $('#timeBoard').html("00:00:00");
-        timeIsUp = false;
-        timerStart = false;
-
-        $('#startButton').removeClass('timeIsUp'); //remove class anyway
-        $('.lu-phaseSet').removeClass('lu-phaseSet-timePass');
-        $("input").attr("disabled", false);
-        $("button").attr("disabled", false);
-
-        if(remindAudio.played.length > 0)
-        {
-          remindAudio.loop = false;
-          remindAudio.load();
-        }
+        timer.start();
+        timerStart = true;
       }
       else
       {
         timer.pause();
         timerStart = false;
+      }
+
+    }
+    else
+    {
+      if(timerStart == false)
+      {
+        //step 1
+        phaseListData = new Array();
+        lastOverallTime = 0;
+        $( ".lu-phaseSet" ).each(function() {
+          phaseSetId = $( this ).attr("id");
+          phaseSetName = $( this ).find('.lu-phaseTitle').val();
+          phaseSetTime = $( this ).find('.lu-phaseTime').val();
+          phaseSetTimeArray = phaseSetTime.split(":");
+          phaseSetTimeInSecond = Number(phaseSetTimeArray[0])*60*60  + Number(phaseSetTimeArray[1])*60 + Number(phaseSetTimeArray[2]);
+          phaseSetTimeInSecondOverall = phaseSetTimeInSecond + lastOverallTime;
+          lastOverallTime = phaseSetTimeInSecondOverall;
+          phaseListData.push
+          (
+            {
+              "phaseSetId": phaseSetId,
+              "phaseSetTimeInSecond": phaseSetTimeInSecond,
+              "phaseSetTimeInSecondOverall": phaseSetTimeInSecondOverall
+            }
+          );
+        });
+
+        //step 2
+        timer.start({
+            // precision: 'secondTenths',
+            // startValues: {seconds: 90},
+            // target: {seconds: 120},
+            callback: function (values)
+            {
+              if(timer.getTotalTimeValues().seconds == phaseListData[0].phaseSetTimeInSecondOverall)
+              {
+                remindAudio.play();
+                //console.log(timer.getTotalTimeValues());
+                $("#" + phaseListData[0].phaseSetId).addClass('lu-phaseSet-timePass');
+
+                phaseListData.splice(0, 1); //remove the first one
+                if(phaseListData.length == 0)
+                {
+                  console.log("time Is Up");
+                  //step 1: stop the timer
+                  timer.pause();
+                  timeIsUp = true;
+                  //step 2: repeat the sound
+                  remindAudio.loop = true;
+                  remindAudio.play();
+                  $('#startButton').addClass('timeIsUp'); //remove class anyway
+                }
+              }
+            }
+        });
+        timerStart = true;
+        //step 3
+        $("input").attr("disabled", true);
+        $("button").attr("disabled", true);
+        $(".primeButton").attr("disabled", false);
+      }
+      else
+      {
+        //repeat 1
+        if(timeIsUp == true)
+        {
+          timer.stop();
+          $('#timeBoard').html("00:00:00");
+          timeIsUp = false;
+          timerStart = false;
+
+          $('#startButton').removeClass('timeIsUp'); //remove class anyway
+          $('.lu-phaseSet').removeClass('lu-phaseSet-timePass');
+          $("input").attr("disabled", false);
+          $("button").attr("disabled", false);
+
+          if(remindAudio.played.length > 0)
+          {
+            remindAudio.loop = false;
+            remindAudio.load();
+          }
+        }
+        else
+        {
+          timer.pause();
+          timerStart = false;
+        }
       }
     }
   });
@@ -321,6 +348,9 @@ $( document ).ready(function() {
         <!-- example -->
       `
     );
+    $('.lu-clearButton').click(function () {
+        $(this).parents("li").remove();
+    });
   });
   $('#presetRun').click(function () {
       $("#phaseList").empty();
@@ -406,6 +436,9 @@ $( document ).ready(function() {
           <!-- example -->
         `
       );
+      $('.lu-clearButton').click(function () {
+          $(this).parents("li").remove();
+      });
   });
 
     $('#presetMeditation').click();
