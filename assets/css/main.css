@@ -232,6 +232,21 @@ dialog {
   animation-iteration-count: infinite;
 }
 
+@keyframes errorMessageAni {
+    from {background-color: #ffc107;}
+    to {background-color: #eee;}
+}
+
+.errorMessage
+{
+  animation-name: errorMessageAni;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  font-weight: 600;
+  font-size: 18px;
+  color: rgb(255,64,129);
+}
+
 .lu-footer
 {
   background-color: #212121;

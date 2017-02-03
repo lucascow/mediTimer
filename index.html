@@ -152,7 +152,7 @@
   <dialog id="setTimeDialog">
     <div class="mdl-grid lu-naviBar">
       <div class="mdl-cell mdl-cell--12-col lu-sonToCenter">
-        <span class="mdl-layout-title lu-title">Add a phase!</span>
+        <span class="mdl-layout-title lu-title dialogTitle">Add a phase!</span>
       </div>
     </div>
     <div class="mdl-grid">
@@ -180,6 +180,11 @@
           <label class="mdl-textfield__label" for="">Second</label>
         </div>
         <!-- <span class="lu-marginRight5px">S</span> -->
+      </div>
+    </div>
+    <div class="mdl-grid " hidden id="errorGrid">
+      <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--2-col-phone lu-sonToCenter">
+        <span class="errorMessage">Error: Total Time cannot be 0</span>
       </div>
     </div>
     <div class="mdl-grid">

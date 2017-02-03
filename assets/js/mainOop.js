@@ -214,6 +214,7 @@ AlarmApp.prototype.initDialog = function() {
     setTimeDialog.show();
   });
   $("#closeDialogButton").on("click", function(){
+    $("#errorGrid").hide();
     setTimeDialog.close();
   });
   $("#confirmDialogButton").on("click", function(){
@@ -222,6 +223,13 @@ AlarmApp.prototype.initDialog = function() {
     var hour = $("#hourInput").val();
     var minute = $("#minuteInput").val();
     var second = $("#secondInput").val();
+
+    var totalTime = phaseSetTimeInSecond = Number(hour)*60*60  + Number(minute)*60 + Number(second);
+    if(totalTime<=0)
+    {
+      $("#errorGrid").prop("hidden", false);
+      return;
+    }
 
     phaseName = phaseName.length==1?'0'+phaseName:phaseName;
     hour = hour.length==1?'0'+hour:hour;
@@ -252,7 +260,10 @@ AlarmApp.prototype.initDialog = function() {
         </li>
       `
     );
+
+    $("#errorGrid").hide();
     setTimeDialog.close();
+
     //add eventlistener for the cross button again
     $('.lu-clearButton').click(function () {
         $(this).parents("li").remove();
