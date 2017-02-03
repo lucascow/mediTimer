@@ -2,16 +2,6 @@
 
 $( document ).ready(function() {
 
-  //sortable
-  // $( "#phaseList" ).sortable({
-  //   placeholder: "ui-state-highlight"
-  // });
-  // $( "#phaseList" ).disableSelection();
-
-  //RubaXa/Sortable
-  var sortableUl = $('#phaseList')[0];
-  var sortable = Sortable.create(sortableUl);
-
   var timer;
   var phaseListData;
   //var remindAudio = $("#remindAudio")[0];
@@ -20,6 +10,19 @@ $( document ).ready(function() {
   //input
   $("input[type='text']").on('click', function () {
      $(this).select();
+  });
+
+  //RubaXa/Sortable
+  var sortableUl = $('#phaseList')[0];
+  var sortable = Sortable.create(sortableUl);
+  $('#phaseList').on("mouseover",function () {
+      console.log("lock!");
+      $("body").addClass('lu-scrollDisable');
+  });
+
+  $('#phaseList').on("mouseleave",function () {
+      console.log("unlock!");
+      $("body").removeClass('lu-scrollDisable');
   });
 
   //dialog

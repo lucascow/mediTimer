@@ -4,6 +4,7 @@ body
   overflow-x: hidden;
 }
 
+
 @media screen and (min-width: 801px)
 {
   .wrapper-Page
@@ -30,6 +31,10 @@ body
   height: 300px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.lu-scrollDisable {
+    overflow: hidden;
 }
 
 .lu-naviBar
