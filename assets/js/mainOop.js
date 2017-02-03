@@ -240,7 +240,7 @@ AlarmApp.prototype.initDialog = function() {
             </div>
             <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
               <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time"  value='${hour}:${minute}:${second}'>
+                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time"  value='${hour}:${minute}:${second}'>
               </div>
             </div>
             <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -285,7 +285,7 @@ AlarmApp.prototype.initPreset = function() {
             </div>
             <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
               <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time" value="00:01:30">
+                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time" value="00:01:30">
               </div>
             </div>
             <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -304,7 +304,7 @@ AlarmApp.prototype.initPreset = function() {
             </div>
             <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
               <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time"  value="00:02:30">
+                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time"  value="00:02:30">
               </div>
             </div>
             <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -323,7 +323,7 @@ AlarmApp.prototype.initPreset = function() {
             </div>
             <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
               <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time"  value="00:06:00">
+                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time"  value="00:06:00">
               </div>
             </div>
             <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -342,7 +342,7 @@ AlarmApp.prototype.initPreset = function() {
             </div>
             <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
               <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time"  value="00:03:00">
+                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time"  value="00:03:00">
               </div>
             </div>
             <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -361,7 +361,7 @@ AlarmApp.prototype.initPreset = function() {
             </div>
             <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
               <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time"  value="00:02:00">
+                <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time"  value="00:02:00">
               </div>
             </div>
             <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -395,7 +395,7 @@ AlarmApp.prototype.initPreset = function() {
               </div>
               <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
                 <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                  <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time" value="00:00:15">
+                  <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time" value="00:00:15">
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -414,7 +414,7 @@ AlarmApp.prototype.initPreset = function() {
               </div>
               <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
                 <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                  <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time"  value="00:00:20">
+                  <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time"  value="00:00:20">
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -433,7 +433,7 @@ AlarmApp.prototype.initPreset = function() {
               </div>
               <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
                 <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                  <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time"  value="00:00:20">
+                  <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time"  value="00:00:20">
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
@@ -452,7 +452,7 @@ AlarmApp.prototype.initPreset = function() {
               </div>
               <div class="mdl-cell mdl-cell--2-col mdl-cell--2-col-tablet mdl-cell--1-col-phone lu-marginNone lu-seperateTheUnderline">
                 <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
-                  <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="text" id="" placeholder="Time"  value="00:00:15">
+                  <input class="mdl-textfield__input lu-sonToCenter lu-phaseTime" type="number" id="" placeholder="Time"  value="00:00:15">
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--1-col lu-marginNone lu-sonToRight">
