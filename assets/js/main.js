@@ -18,12 +18,12 @@ $( document ).ready(function() {
   var sortableUl = $('#phaseList')[0];
   var sortable = Sortable.create(sortableUl);
   $('#phaseList').on("mouseover",function () {
-      console.log("lock!");
+      // console.log("lock!");
       $("body").addClass('lu-scrollDisable');
   });
 
   $('#phaseList').on("mouseleave",function () {
-      console.log("unlock!");
+      // console.log("unlock!");
       $("body").removeClass('lu-scrollDisable');
   });
 
@@ -155,7 +155,8 @@ $( document ).ready(function() {
             {
               if(timer.getTotalTimeValues().seconds == phaseListData[0].phaseSetTimeInSecondOverall)
               {
-                remindAudio.play();
+                //remindAudio.play();
+                $("#playSouund").click();
                 //console.log(timer.getTotalTimeValues());
                 $("#" + phaseListData[0].phaseSetId).addClass('lu-phaseSet-timePass');
 
@@ -167,8 +168,9 @@ $( document ).ready(function() {
                   timer.pause();
                   timeIsUp = true;
                   //step 2: repeat the sound
-                  remindAudio.loop = true;
+                  //remindAudio.loop = true;
                   remindAudio.play();
+                  $("#playSouund").click();
                   $('#startButton').addClass('timeIsUp'); //remove class anyway
                 }
               }
@@ -479,7 +481,7 @@ $( document ).ready(function() {
       remindAudio = new Audio("assets/media/newMessage.mp3");
     });
 
-    $("#playpausex").click(function(){
+    $("#playSouund").click(function(){
       // console.log(remindAudioXX);
       remindAudio = new Audio("assets/media/newMessage.mp3");
       remindAudio.play();
