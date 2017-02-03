@@ -3,7 +3,8 @@ function AlarmApp ()
   this.phaseListData;
   this.noSleep;
   this.timer = new Timer();
-  this.remindAudio = new Audio("assets/media/newMessage.mp3");
+  // this.remindAudio = new Audio("assets/media/newMessage.mp3");
+  this.remindAudio = $("#remindAudio")[0];
   this.timerRunning = false;
   this.timeIsUp = false;
 
