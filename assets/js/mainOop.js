@@ -181,6 +181,8 @@ AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
 
 AlarmApp.prototype.addListener = function() {
 
+  //hide the error message
+  $("#errorGrid").hide();
   //input
   $("input[type='text']").on('click touchstart', function () {
      $(this).select();
@@ -228,7 +230,7 @@ AlarmApp.prototype.initDialog = function() {
     var totalTime = phaseSetTimeInSecond = Number(hour)*60*60  + Number(minute)*60 + Number(second);
     if(totalTime<=0)
     {
-      $("#errorGrid").prop("hidden", false);
+      $("#errorGrid").show();
       return;
     }
 
