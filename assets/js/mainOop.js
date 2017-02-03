@@ -182,7 +182,7 @@ AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
 AlarmApp.prototype.addListener = function() {
 
   //input
-  $("input[type='text']").on('click', function () {
+  $("input[type='text']").on('click touchstart', function () {
      $(this).select();
   });
   //RubaXa/Sortable
