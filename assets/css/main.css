@@ -172,22 +172,21 @@ body
 
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.06);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
-
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: rgba(189, 189, 189, 0.6);
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.06);
+    background: rgba(255, 64, 129, 0.71);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(189, 189, 189, 0.6);
+	background: rgba(0,0,0,0.4);
 }
 
 /*html>body #sortable li
@@ -241,4 +240,5 @@ dialog {
 .lu-footer a
 {
   color: #ff4081;
+  text-decoration: none;
 }
