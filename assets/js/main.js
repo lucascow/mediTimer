@@ -232,8 +232,8 @@ $( document ).ready(function() {
   });
 
   //no sleep
-  var noSleep = new NoSleep();
-  noSleep.enable();
+  //var noSleep = new NoSleep();
+  //noSleep.enable();
 
   //button to delete 1 row
   $('.lu-clearButton').click(function () {
