@@ -12,6 +12,8 @@ $( document ).ready(function() {
      $(this).select();
   });
 
+  //audio
+
   //RubaXa/Sortable
   var sortableUl = $('#phaseList')[0];
   var sortable = Sortable.create(sortableUl);
@@ -450,4 +452,37 @@ $( document ).ready(function() {
   });
 
     $('#presetMeditation').click();
+
+    //Audio
+    var audioLoaded = false;
+
+    var remindAudioXX;
+    var remindAudioX = function () {
+      // if (!audioLoaded) {
+      //   this.one('canplay', function () {
+      //     audioLoaded = true;
+      //     this.play();
+      //   }, this);
+      //   this.load('assets/media/newMessage.mp3');
+      // } else {
+      //   //this.playPause();
+      // }
+        remindAudioXX = new Audio("assets/media/newMessage.mp3");
+    }
+
+    var audio5js = new Audio5js({
+      // swf_path: './flash/audio5js.swf',
+      ready: function () {
+        var btn = document.getElementById('playpause');
+        btn.addEventListener('click', remindAudioX.bind(this), false);
+      }
+    });
+
+    $("#playpausex").click(function(){
+      console.log(remindAudioXX);
+      remindAudioXX.play();
+    });
+
+
+
 });
