@@ -454,33 +454,35 @@ $( document ).ready(function() {
     $('#presetMeditation').click();
 
     //Audio
-    var audioLoaded = false;
+    // var audioLoaded = false;
+    // var remindAudioX = function () {
+    //   if (!audioLoaded) {
+    //     this.one('canplay', function () {
+    //       audioLoaded = true;
+    //       this.play();
+    //     }, this);
+    //     this.load('assets/media/newMessage.mp3');
+    //   } else {
+    //     //this.playPause();
+    //   }
+    // }
+    // var audio5js = new Audio5js({
+    //   // swf_path: './flash/audio5js.swf',
+    //   ready: function () {
+    //     var btn = document.getElementById('playpause');
+    //     btn.addEventListener('click', remindAudioX.bind(this), false);
+    //   }
+    // });
 
-    var remindAudioXX;
-    var remindAudioX = function () {
-      // if (!audioLoaded) {
-      //   this.one('canplay', function () {
-      //     audioLoaded = true;
-      //     this.play();
-      //   }, this);
-      //   this.load('assets/media/newMessage.mp3');
-      // } else {
-      //   //this.playPause();
-      // }
-        remindAudioXX = new Audio("assets/media/newMessage.mp3");
-    }
-
-    var audio5js = new Audio5js({
-      // swf_path: './flash/audio5js.swf',
-      ready: function () {
-        var btn = document.getElementById('playpause');
-        btn.addEventListener('click', remindAudioX.bind(this), false);
-      }
+    // var remindAudioXX;
+    $("#playpause").click(function(){
+      remindAudio = new Audio("assets/media/newMessage.mp3");
     });
 
     $("#playpausex").click(function(){
-      console.log(remindAudioXX);
-      remindAudioXX.play();
+      // console.log(remindAudioXX);
+      remindAudio = new Audio("assets/media/newMessage.mp3");
+      remindAudio.play();
     });
 
 
