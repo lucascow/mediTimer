@@ -3,10 +3,12 @@ function AlarmApp ()
   this.phaseListData;
   this.noSleep;
   this.timer = new Timer();
+  this.subTimer;
   // this.remindAudio = new Audio("assets/media/newMessage.mp3");
   this.remindAudio = $("#remindAudio")[0];
   this.timerRunning = false;
   this.timeIsUp = false;
+  this.timerCreated = false;
 
 }
 
@@ -145,7 +147,7 @@ AlarmApp.prototype.initTimer = function() {
       //Case 2: there are some phase
       else
       {
-        if(this.timerRunning == false) // if it is the new count
+        if (this.timerCreated == false) // if it is the new count
         {
           //step 1: gather information
           var phaseSetId;
@@ -169,6 +171,7 @@ AlarmApp.prototype.initTimer = function() {
               (
                 {
                   "phaseSetId": phaseSetId,
+                  "phaseSetTime": phaseSetTime,
                   "phaseSetTimeInSecond": phaseSetTimeInSecond,
                   "phaseSetTimeInSecondOverall": phaseSetTimeInSecondOverall
                 }
@@ -177,26 +180,25 @@ AlarmApp.prototype.initTimer = function() {
           );
 
           //step 2: configure the timer
-          this.timerRunning = true;
-          $("input").attr("disabled", true);
-          $("button").attr("disabled", true);
-          $(".primeButton").attr("disabled", false);
-          $(".lu-phaseSet").addClass("lu-phaseSet-filter");
           this.timer.start({
               // precision: 'secondTenths',
               // startValues: {seconds: 90},
               // target: {seconds: 120},
               callback: function (values)
               {
-                if(this.timer.getTotalTimeValues().seconds <= 1)
+                if(this.timer.getTotalTimeValues().seconds == 1)
                 {
                   $("#" + this.phaseListData[0].phaseSetId).removeClass('lu-phaseSet-filter');
                   $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
+
+                  this.createSubTimer("firstCallAdjust");
                 }
                 else if(this.timer.getTotalTimeValues().seconds == this.phaseListData[0].phaseSetTimeInSecondOverall)
                 {
                   this.remindAudio.play();
+
                   this.phaseListData.splice(0, 1);
+
                   if(this.phaseListData.length !== 0)
                   {
                     $(".lu-phaseSet").addClass("lu-phaseSet-filter");
@@ -204,20 +206,7 @@ AlarmApp.prototype.initTimer = function() {
                     $(".lu-phaseSet").removeClass('lu-phaseSet-blinking');
                     $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
 
-                    // var tempTimer = new Timer();
-                    // var tempId = this.phaseListData[0].phaseSetId;
-                    // var tempTime;
-                    // tempTimer.start(
-                    //   {
-                    //     countdown: true,
-                    //     startValues: {seconds: 30}
-                    //     ,callback: function (values)
-                    //     {
-                    //       $("#" + tempId).html(values.toString());
-                    //       console.log(values.toString());
-                    //     }
-                    //   }
-                    // );
+                    this.createSubTimer();
                   }
                   else //if it is the end
                   {
@@ -231,32 +220,53 @@ AlarmApp.prototype.initTimer = function() {
                 }
               }.bind(this)
           });
+          this.timerRunning = true;
+          this.timerCreated = true;
+          $("input").attr("disabled", true);
+          $("button").attr("disabled", true);
+          $(".primeButton").attr("disabled", false);
+          $(".lu-phaseSet").addClass("lu-phaseSet-filter");
         }
-        else //or it is not a new count
+        else
         {
-          if(this.timeIsUp == true)
+          if(this.timerRunning == false)
           {
-            this.resetOrTimeIsUpMechanism();
+            this.timer.start();
+            this.subTimer.start();
+            this.timerRunning = true;
           }
           else
           {
-            this.timer.pause();
-            this.timerRunning = false;
+            if(this.timeIsUp == true)
+            {
+              this.resetOrTimeIsUpMechanism();
+            }
+            else
+            {
+              this.timer.pause();
+              this.subTimer.pause();
+              this.timerRunning = false;
+            }
           }
         }
       }
     }.bind(this)
   );
 
-
 }
 
 AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
 {
   this.timer.stop();
+  this.subTimer.stop();
+  if (this.timeIsUp == false) {
+    $("#" + this.phaseListData[0].phaseSetId).find('.lu-phaseTime').val(this.phaseListData[0].phaseSetTime);
+  }
+
   $('#timeBoard').html("00:00:00");
   this.timeIsUp = false;
   this.timerRunning = false;
+  this.timerCreated = false;
 
   $('#startButton').removeClass('timeIsUp'); //remove class anyway
   //$('.lu-phaseSet').removeClass('lu-phaseSet-timePass');
@@ -270,6 +280,46 @@ AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
     this.remindAudio.loop = false;
     this.remindAudio.load();
   }
+
+}
+
+AlarmApp.prototype.toHHMMSS = function (foo) {
+    var sec_num = parseInt(foo, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return hours+':'+minutes+':'+seconds;
+}
+
+AlarmApp.prototype.createSubTimer = function(adjustFlag) {
+
+  this.subTimer = new Timer();
+  var tempId = this.phaseListData[0].phaseSetId;
+  var tempTime = this.phaseListData[0].phaseSetTimeInSecond;
+  var originalTime = this.phaseListData[0].phaseSetTime;
+
+  if (adjustFlag != undefined) {
+    tempTime -= 1;
+    $("#" + tempId).find('.lu-phaseTime').val(this.toHHMMSS(tempTime));
+  }
+
+  this.subTimer.start(
+    {
+      countdown: true,
+      startValues: {seconds: tempTime},
+      callback: function (values)
+      {
+        $("#" + tempId).find('.lu-phaseTime').val(values.toString());
+      }
+    }
+  );
+  this.subTimer.addEventListener('targetAchieved', function (e) {
+      $("#" + tempId).find('.lu-phaseTime').val(originalTime);
+  });
 
 }
 
