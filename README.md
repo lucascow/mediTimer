@@ -1,7 +1,7 @@
 # meditationTimer
 
 ### To use the timer, please visit:
-https://lucascow.github.io/meditationTimer/
+https://lucascow.github.io/meditation-timer/
 
 ### Stuff used to make this:
 
