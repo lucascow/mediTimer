@@ -13,11 +13,14 @@ body
     margin-right:auto;
     max-width: 800px;
     border: 1px solid rgba(63,81,181,.26);
+    border-bottom: 1px solid rgba(63, 81, 181, 0.33);
+    border-top: 1px solid rgba(63, 81, 181, 0.33);
   }
 
   #phaseList
   {
     height: 350px;
+    padding-top: 25px;
   }
 
 }
@@ -29,8 +32,11 @@ body
   padding: 0;
   width: 100%;
   height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
+  border-bottom: 1px solid rgba(63, 81, 181, 0.33);
+  border-top: 1px solid rgba(63, 81, 181, 0.33);
+  padding-top: 25px;
 }
 
 .lu-scrollDisable {
@@ -139,14 +145,14 @@ body
 .lu-phaseTitle
 {
   font-weight: 600;
-  /*border-bottom: 1px solid rgba(0, 0, 0, 0.33);*/
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.12);*/
 }
 
 .lu-phaseTime
 {
   color: rgb(255,64,129);
   font-weight: 600;
-  /*border-bottom: 1px solid rgba(0, 0, 0, 0.33);*/
+  /*border-bottom: 1px solid rgba(0, 0, 0, 0.12);*/
   font-size: 14px;
   padding-top: 5px;
 }
@@ -172,41 +178,28 @@ body
   filter: opacity(50%);
 }
 
-/* Let's get this party started */
+
 ::-webkit-scrollbar {
     width: 12px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
 
-/* Handle */
+
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: rgba(255, 64, 129, 0.71) !important;
+    background: rgba(255, 64, 129, 0.5) !important;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(0,0,0,0.4);
 }
-
-/*html>body #sortable li
-{
-  height: 2em; #1.5em;
-  line-height: 1.2em;
-}*/
-
-/*.ui-state-highlight
-{
-  height: 1.5em;
-  line-height: 1.2em;
-}*/
 
 dialog {
   position: fixed;
@@ -253,6 +246,19 @@ dialog {
   color: rgb(255,64,129);
 }
 
+@keyframes lu-phaseSet-blinkingAni {
+    from {background-color: rgba(63, 81, 181, 0.33);}
+    to {background-color: rgba(63, 81, 181, .12);}
+}
+
+.lu-phaseSet-blinking
+{
+  animation-name: lu-phaseSet-blinkingAni;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  filter: opacity(100%);
+}
+
 .lu-footer
 {
   background-color: #212121;
@@ -263,4 +269,10 @@ dialog {
 {
   color: #ff4081;
   text-decoration: none !important;
+}
+
+#totalTimeBoard
+{
+  color: rgba(63, 81, 181, 0.75);
+  margin: 0px;
 }

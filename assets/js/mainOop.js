@@ -14,14 +14,29 @@ AlarmApp.prototype.start = function()
 {
   this.initGoogleAnalytics();
   this.addListener();
+  this.enableDragItem();
   this.initDialog();
   this.initTimer();
   this.initPreset();
   this.enableNoSleep();
-
-  this.setTheCurrentSetToMediatation();
 }
 
+AlarmApp.prototype.enableDragItem = function()
+{
+  //method 1 - Jquery UI
+  $( "#phaseList" ).sortable();
+  $( "#phaseList" ).disableSelection();
+
+  //method 2 - RubaXa/Sortable
+  // var sortableUl = $('#phaseList')[0];
+  // var sortable = Sortable.create(sortableUl,
+  //   {
+  //     // filter: ".lu-phaseTitle, .lu-phaseTime"
+  //     draggable: ".lu-phaseSet"
+  //   }
+  // );
+
+}
 
 AlarmApp.prototype.initGoogleAnalytics = function()
 {
@@ -40,6 +55,57 @@ AlarmApp.prototype.enableNoSleep = function()
   //no sleep
   this.noSleep = new NoSleep();
   this.noSleep.enable();
+}
+
+AlarmApp.prototype.toStringWithZero = function(number)
+{
+  var foo = number;
+  foo = foo.toString();
+  foo = foo.length==1?'0'+foo:foo;
+  return foo;
+}
+
+AlarmApp.prototype.calTotalTimeWithPurification = function()
+{
+  var totalHour = 0;
+  var totalMin = 0;
+  var totalSec = 0;
+
+  $( ".lu-phaseSet" ).each(
+    function(index, element ) {
+      phaseSetTime = $( element ).find('.lu-phaseTime').val();
+      phaseSetTimeArray = phaseSetTime.split(":");
+
+      var hour = Number(phaseSetTimeArray[0]);
+      var min = Number(phaseSetTimeArray[1]);
+      var sec = Number(phaseSetTimeArray[2]);
+
+      totalHour += Number(hour);
+      totalMin += Number(min);
+      totalSec += Number(sec);
+
+      //Purification
+      min += parseInt(sec/60);
+      sec = sec%60;
+      hour += parseInt(min/60);
+      min = min%60;
+      hour = this.toStringWithZero(hour);
+      min = this.toStringWithZero(min);
+      sec = this.toStringWithZero(sec);
+      $( element ).find('.lu-phaseTime').val(`${hour}:${min}:${sec}`);
+
+    }.bind(this)
+  );
+
+  totalMin += parseInt(totalSec/60);
+  totalSec = totalSec%60;
+  totalHour += parseInt(totalMin/60);
+  totalMin = totalMin%60;
+  totalMin = this.toStringWithZero(totalMin);
+  totalSec = this.toStringWithZero(totalSec);
+  totalHour = this.toStringWithZero(totalHour);
+
+  $('#totalTimeBoard').html(`Total Time: ${totalHour}:${totalMin}:${totalSec}`);
 }
 
 AlarmApp.prototype.initTimer = function() {
@@ -125,6 +191,7 @@ AlarmApp.prototype.initTimer = function() {
                 if(this.timer.getTotalTimeValues().seconds <= 1)
                 {
                   $("#" + this.phaseListData[0].phaseSetId).removeClass('lu-phaseSet-filter');
+                  $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
                 }
                 else if(this.timer.getTotalTimeValues().seconds == this.phaseListData[0].phaseSetTimeInSecondOverall)
                 {
@@ -134,6 +201,8 @@ AlarmApp.prototype.initTimer = function() {
                   {
                     $(".lu-phaseSet").addClass("lu-phaseSet-filter");
                     $("#" + this.phaseListData[0].phaseSetId).removeClass('lu-phaseSet-filter');
+                    $(".lu-phaseSet").removeClass('lu-phaseSet-blinking');
+                    $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
                   }
                   else //if it is the end
                   {
@@ -179,6 +248,7 @@ AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
   $("input").attr("disabled", false);
   $("button").attr("disabled", false);
   $(".lu-phaseSet").removeClass('lu-phaseSet-filter');
+  $(".lu-phaseSet").removeClass('lu-phaseSet-blinking');
 
   if(this.remindAudio.played.length > 0)
   {
@@ -191,30 +261,17 @@ AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
 AlarmApp.prototype.addListener = function() {
 
   //hide the error message
-  $("#errorGrid").hide();
+  $("#errorGrid-Zero").hide();
   //input
   $("input[type='text']").on('click touchstart', function () {
      $(this).select();
   });
-  //RubaXa/Sortable
-  var sortableUl = $('#phaseList')[0];
-  var sortable = Sortable.create(sortableUl,
-    {
-      // filter: ".lu-phaseTitle, .lu-phaseTime"
-      draggable: ".lu-phaseSet"
-    }
-  );
-  // $('#phaseList').on("mouseover",function () {
-  //     // console.log("lock!");
-  //     $("body").addClass('lu-scrollDisable');
-  // });
-  // $('#phaseList').on("mouseleave",function () {
-  //     $("body").removeClass('lu-scrollDisable');
-  // });
   //button to delete all row
   $('#clearListButton').click(function () {
       $("#phaseList").empty();
-  });
+      this.calTotalTimeWithPurification();
+  }.bind(this));
+
 }
 
 
@@ -231,9 +288,10 @@ AlarmApp.prototype.initDialog = function() {
     setTimeDialog.show();
   });
   $("#closeDialogButton").on("click", function(){
-    $("#errorGrid").hide();
+    $("#errorGrid-Zero").hide();
     setTimeDialog.close();
   });
+
   $("#confirmDialogButton").on("click", function(){
 
     var phaseName = $("#phaseNameInput").val();
@@ -244,7 +302,7 @@ AlarmApp.prototype.initDialog = function() {
     var totalTime = phaseSetTimeInSecond = Number(hour)*60*60  + Number(minute)*60 + Number(second);
     if(totalTime<=0)
     {
-      $("#errorGrid").show();
+      $("#errorGrid-Zero").show();
       return;
     }
 
@@ -278,23 +336,25 @@ AlarmApp.prototype.initDialog = function() {
       `
     );
 
-    $("#errorGrid").hide();
+    $("#errorGrid-Zero").hide();
     setTimeDialog.close();
 
     //add eventlistener for the cross button again
-    $('.lu-clearButton').click(function () {
-        $(this).parents("li").remove();
-    });
+    $('.lu-clearButton').click(function (event) {
+        $(event.currentTarget).parents("li").remove();
+        this.calTotalTimeWithPurification();
+    }.bind(this));
+    $(".lu-phaseTime").change(this.calTotalTimeWithPurification.bind(this));
+
     //reset the dialog input box
     $("#phaseNameInput").val("");
     $("#hourInput").val("00");
     $("#minuteInput").val("00");
     $("#secondInput").val("00");
-  });
-}
 
-AlarmApp.prototype.setTheCurrentSetToMediatation = function() {
-  $('#presetMeditation').click();
+    this.calTotalTimeWithPurification();
+
+  }.bind(this));
 }
 
 AlarmApp.prototype.initPreset = function() {
@@ -302,7 +362,7 @@ AlarmApp.prototype.initPreset = function() {
   $("#phaseList").append(
     `
       <!-- example -->
-      <li class="ui-state-default lu-phaseSet" id="1486019640222">
+      <li class="ui-state-default lu-phaseSet lu-phaseSet-blinking#" id="1486019640222">
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--9-col mdl-cell--5-col-tablet mdl-cell--2-col-phone lu-marginNone">
             <div class="mdl-textfield mdl-js-textfield lu-paddingNone">
@@ -401,9 +461,12 @@ AlarmApp.prototype.initPreset = function() {
     `
   );
   //add eventlistener for the cross button again
-  $('.lu-clearButton').click(function () {
-      $(this).parents("li").remove();
-  });
+  $('.lu-clearButton').click(function (event) {
+      $(event.currentTarget).parents("li").remove();
+      this.calTotalTimeWithPurification();
+  }.bind(this));
+  $(".lu-phaseTime").change(this.calTotalTimeWithPurification.bind(this));
+  this.calTotalTimeWithPurification();
 }
 
 $( document ).ready(function() {

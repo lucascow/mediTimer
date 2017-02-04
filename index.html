@@ -1,4 +1,4 @@
-<!-- scroll bar & sqaure & html content -->
+<!-- blinking-->
 
 <!DOCTYPE html>
 <html>
@@ -35,6 +35,10 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
 <script src="assets/js/jquery.min.3.1.1.js"></script>
 
+<!-- jqueryUI -->
+<script src="assets/js/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="assets/css/jquery-ui.css">
+
 <!-- soratble -->
 <script src="assets/js/Sortable.js"></script>
 
@@ -66,13 +70,13 @@
   </div>
   <!-- Add & Clear -->
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--1-col">
-      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="showDialogButton">
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--9-offset-desktop mdl-cell--5-offset-tablet mdl-cell--1-offset-phone ">
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" id="showDialogButton">
         Add
       </button>
     </div>
-    <div class="mdl-cell mdl-cell--2-col">
-      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" id="clearListButton">
+    <div class="mdl-cell mdl-cell--2-col ">
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--primary" id="clearListButton">
         Clear All
       </button>
     </div>
@@ -89,19 +93,17 @@
   <!-- display -->
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--12-col lu-sonToCenter">
+      <h6 id="totalTimeBoard" class="">
+        Total Time: 00:00:00
+      </h6>
+    </div>
+    <div class="mdl-cell mdl-cell--12-col lu-sonToCenter">
       <h3 id="timeBoard" class="lu-timeBoard">
         00:00:00
       </h3>
     </div>
   </div>
 
-  <!-- <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--12-col lu-sonToCenter">
-      <button id="startButton#">Start</button>
-      <button id="pauseButton" >Pause</button>
-      <button id="soundButton">Sound</button>
-    </div>
-  </div> -->
 
   <!-- control -->
   <div class="mdl-grid">
@@ -182,7 +184,7 @@
         <!-- <span class="lu-marginRight5px">S</span> -->
       </div>
     </div>
-    <div class="mdl-grid " id="errorGrid">
+    <div class="mdl-grid " id="errorGrid-Zero">
       <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone lu-sonToCenter">
         <span class="errorMessage">Error: Total Time cannot be 0</span>
       </div>
