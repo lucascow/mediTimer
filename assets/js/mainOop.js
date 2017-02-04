@@ -203,6 +203,21 @@ AlarmApp.prototype.initTimer = function() {
                     $("#" + this.phaseListData[0].phaseSetId).removeClass('lu-phaseSet-filter');
                     $(".lu-phaseSet").removeClass('lu-phaseSet-blinking');
                     $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
+
+                    // var tempTimer = new Timer();
+                    // var tempId = this.phaseListData[0].phaseSetId;
+                    // var tempTime;
+                    // tempTimer.start(
+                    //   {
+                    //     countdown: true,
+                    //     startValues: {seconds: 30}
+                    //     ,callback: function (values)
+                    //     {
+                    //       $("#" + tempId).html(values.toString());
+                    //       console.log(values.toString());
+                    //     }
+                    //   }
+                    // );
                   }
                   else //if it is the end
                   {
