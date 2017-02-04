@@ -188,9 +188,7 @@ AlarmApp.prototype.initTimer = function() {
               {
                 if(this.timer.getTotalTimeValues().seconds == 1)
                 {
-                  $("#" + this.phaseListData[0].phaseSetId).removeClass('lu-phaseSet-filter');
                   $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
-
                   this.createSubTimer("firstCallAdjust");
                 }
                 else if(this.timer.getTotalTimeValues().seconds == this.phaseListData[0].phaseSetTimeInSecondOverall)
@@ -201,8 +199,6 @@ AlarmApp.prototype.initTimer = function() {
 
                   if(this.phaseListData.length !== 0)
                   {
-                    $(".lu-phaseSet").addClass("lu-phaseSet-filter");
-                    $("#" + this.phaseListData[0].phaseSetId).removeClass('lu-phaseSet-filter');
                     $(".lu-phaseSet").removeClass('lu-phaseSet-blinking');
                     $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
 
@@ -216,6 +212,7 @@ AlarmApp.prototype.initTimer = function() {
                     this.remindAudio.loop = true;
                     this.remindAudio.play();
                     $('#startButton').addClass('timeIsUp');
+                    $(".lu-phaseSet").removeClass('lu-phaseSet-blinking');
                   }
                 }
               }.bind(this)
