@@ -111,6 +111,16 @@ AlarmApp.prototype.calTotalTimeWithPurification = function()
   $('#totalTimeBoard').html(`Total Time: ${totalHour}:${totalMin}:${totalSec}`);
 }
 
+AlarmApp.prototype.initSound = function() {
+  //load the music
+  this.remindAudio = $("#remindAudio")[0]; //not enough to trigger the loading audio action
+  this.remindAudio.muted = true; //enough to trigger the loading audio action
+  this.remindAudio.play(); //can produce a start-like sound in some browser
+  setTimeout(function(){
+    this.remindAudio.muted = false;
+  }, 1000);
+}
+
 AlarmApp.prototype.initTimer = function() {
 
   //1
@@ -134,13 +144,7 @@ AlarmApp.prototype.initTimer = function() {
       {
         if($('#timeBoard').html() == "00:00:00")
         {
-          //load the music
-          this.remindAudio = $("#remindAudio")[0];
-          this.remindAudio.muted = true;
-          this.remindAudio.play();
-          setTimeout(function(){
-            this.remindAudio.muted = false;
-          }, 1000);
+          this.initSound();
         }
         if(this.timerRunning == false)
         {
@@ -162,12 +166,7 @@ AlarmApp.prototype.initTimer = function() {
         if (this.timerForAllCreated == false) // if it is the new count
         {
           //load the music
-          this.remindAudio = $("#remindAudio")[0];
-          this.remindAudio.muted = true;
-          this.remindAudio.play();
-          setTimeout(function(){
-            this.remindAudio.muted = false;
-          }, 1000);
+          this.initSound();
 
           //step 1: gather information
           var phaseSetId;
