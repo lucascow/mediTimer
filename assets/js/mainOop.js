@@ -136,11 +136,13 @@ AlarmApp.prototype.initTimer = function() {
         {
           this.timer.start();
           this.timerRunning = true;
+          $('#startButton').text("Pause");
         }
         else
         {
           this.timer.pause();
           this.timerRunning = false;
+          $('#startButton').text("Start");
         }
 
       }
@@ -225,6 +227,7 @@ AlarmApp.prototype.initTimer = function() {
           $("button").attr("disabled", true);
           $(".primeButton").attr("disabled", false);
           $(".lu-phaseSet").addClass("lu-phaseSet-filter");
+          $('#startButton').text("Pause");
         }
         else
         {
@@ -233,6 +236,7 @@ AlarmApp.prototype.initTimer = function() {
             this.timer.start();
             this.subTimer.start();
             this.timerRunning = true;
+            $('#startButton').text("Pause");
           }
           else
           {
@@ -245,6 +249,7 @@ AlarmApp.prototype.initTimer = function() {
               this.timer.pause();
               this.subTimer.pause();
               this.timerRunning = false;
+              $('#startButton').text("Start");
             }
           }
         }
@@ -281,6 +286,7 @@ AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
     this.remindAudio.loop = false;
     this.remindAudio.load();
   }
+  $('#startButton').text("Start");
 
 }
 
