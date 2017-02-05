@@ -200,8 +200,11 @@ AlarmApp.prototype.initTimer = function() {
 
                   this.remindAudio.play();
 
-                  this.phaseListData.splice(0, 1);
+                  if (this.phaseListData[0].phaseSetTimeInSecond == 1) {
+                    this.createSubTimer();
+                  }
 
+                  this.phaseListData.splice(0, 1);
                   if(this.phaseListData.length !== 0)
                   {
                     $(".lu-phaseSet").removeClass('lu-phaseSet-blinking');
@@ -303,7 +306,6 @@ AlarmApp.prototype.toHHMMSS = function (foo) {
 }
 
 AlarmApp.prototype.createSubTimer = function(adjustFlag) {
-
   this.subTimer = new Timer();
   var tempId = this.phaseListData[0].phaseSetId;
   var tempTime = this.phaseListData[0].phaseSetTimeInSecond;
