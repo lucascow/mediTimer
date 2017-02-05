@@ -189,7 +189,7 @@ AlarmApp.prototype.initTimer = function() {
                 if(this.timer.getTotalTimeValues().seconds == 1)
                 {
                   $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
-                  this.createSubTimer("firstCallAdjust");
+                  //this.createSubTimer("firstCallAdjust");
                 }
                 if(this.timer.getTotalTimeValues().seconds == this.phaseListData[0].phaseSetTimeInSecondOverall)
                 {
