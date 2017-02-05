@@ -336,6 +336,12 @@ AlarmApp.prototype.addListener = function() {
       this.calTotalTimeWithPurification();
   }.bind(this));
 
+  $(document).keypress( function(e) {
+    if(e.keyCode == 13) {
+      $("#startButton").click();
+    }
+  });
+
 }
 
 
