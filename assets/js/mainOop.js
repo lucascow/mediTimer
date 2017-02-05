@@ -8,7 +8,7 @@ function AlarmApp ()
   this.remindAudio = $("#remindAudio")[0];
   this.timerRunning = false;
   this.timeIsUp = false;
-  this.timerForCountDownCreated = false;
+  this.timerForAllCreated = false;
 
 }
 
@@ -130,7 +130,7 @@ AlarmApp.prototype.initTimer = function() {
     function () {
 
       //Case 1: No phase at all
-      if ($(".lu-phaseSet").length == 0 && this.timerForCountDownCreated == false)
+      if ($(".lu-phaseSet").length == 0 && this.timerForAllCreated == false)
       {
         if(this.timerRunning == false)
         {
@@ -147,7 +147,7 @@ AlarmApp.prototype.initTimer = function() {
       //Case 2: there are some phase
       else
       {
-        if (this.timerForCountDownCreated == false) // if it is the new count
+        if (this.timerForAllCreated == false) // if it is the new count
         {
           //step 1: gather information
           var phaseSetId;
@@ -186,13 +186,16 @@ AlarmApp.prototype.initTimer = function() {
               // target: {seconds: 120},
               callback: function (values)
               {
-                if(this.timer.getTotalTimeValues().seconds == 1)
+                if(this.timer.getTotalTimeValues().seconds == 1) //if this is the first phase
                 {
                   $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
-                  //this.createSubTimer("firstCallAdjust");
+                  if (this.phaseListData[0].phaseSetTimeInSecond != 1) {
+                    this.createSubTimer("firstCallAdjust");
+                  }
                 }
                 if(this.timer.getTotalTimeValues().seconds == this.phaseListData[0].phaseSetTimeInSecondOverall)
                 {
+
                   this.remindAudio.play();
 
                   this.phaseListData.splice(0, 1);
@@ -201,7 +204,6 @@ AlarmApp.prototype.initTimer = function() {
                   {
                     $(".lu-phaseSet").removeClass('lu-phaseSet-blinking');
                     $("#" + this.phaseListData[0].phaseSetId).addClass('lu-phaseSet-blinking');
-
                     this.createSubTimer();
                   }
                   else //if it is the end
@@ -218,7 +220,7 @@ AlarmApp.prototype.initTimer = function() {
               }.bind(this)
           });
           this.timerRunning = true;
-          this.timerForCountDownCreated = true;
+          this.timerForAllCreated = true;
           $("input").attr("disabled", true);
           $("button").attr("disabled", true);
           $(".primeButton").attr("disabled", false);
@@ -255,7 +257,7 @@ AlarmApp.prototype.initTimer = function() {
 AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
 {
   this.timer.stop();
-  if (this.timerForCountDownCreated == true) {
+  if (this.timerForAllCreated == true) {
     this.subTimer.stop();
     if (this.timeIsUp == false) {
       $("#" + this.phaseListData[0].phaseSetId).find('.lu-phaseTime').val(this.phaseListData[0].phaseSetTime);
@@ -265,7 +267,7 @@ AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
   $('#timeBoard').html("00:00:00");
   this.timeIsUp = false;
   this.timerRunning = false;
-  this.timerForCountDownCreated = false;
+  this.timerForAllCreated = false;
 
   $('#startButton').removeClass('timeIsUp'); //remove class anyway
   //$('.lu-phaseSet').removeClass('lu-phaseSet-timePass');
