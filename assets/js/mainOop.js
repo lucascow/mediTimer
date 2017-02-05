@@ -5,6 +5,7 @@ function AlarmApp ()
   this.timer = new Timer();
   this.subTimer;
   // this.remindAudio = new Audio("assets/media/newMessage.mp3");
+  //this.remindAudio = $("#remindAudio")[0];
   this.remindAudio;
   this.timerRunning = false;
   this.timeIsUp = false;
@@ -128,13 +129,15 @@ AlarmApp.prototype.initTimer = function() {
   //3
   $('#startButton').click(
     function () {
-
-      //load the music
-      this.remindAudio = $("#remindAudio")[0];
-
       //Case 1: No phase at all
       if ($(".lu-phaseSet").length == 0 && this.timerForAllCreated == false)
       {
+        if($('#timeBoard').html() == "00:00:00")
+        {
+          //load the music
+          this.remindAudio = $("#remindAudio")[0];
+          this.remindAudio.play();
+        }
         if(this.timerRunning == false)
         {
           this.timer.start();
@@ -154,6 +157,10 @@ AlarmApp.prototype.initTimer = function() {
       {
         if (this.timerForAllCreated == false) // if it is the new count
         {
+          //load the music
+          this.remindAudio = $("#remindAudio")[0];
+          this.remindAudio.play();
+
           //step 1: gather information
           var phaseSetId;
           var phaseSetName;
