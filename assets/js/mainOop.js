@@ -5,7 +5,7 @@ function AlarmApp ()
   this.timer = new Timer();
   this.subTimer;
   // this.remindAudio = new Audio("assets/media/newMessage.mp3");
-  this.remindAudio = $("#remindAudio")[0];
+  this.remindAudio;
   this.timerRunning = false;
   this.timeIsUp = false;
   this.timerForAllCreated = false;
@@ -128,6 +128,9 @@ AlarmApp.prototype.initTimer = function() {
   //3
   $('#startButton').click(
     function () {
+
+      //load the music
+      this.remindAudio = $("#remindAudio")[0];
 
       //Case 1: No phase at all
       if ($(".lu-phaseSet").length == 0 && this.timerForAllCreated == false)
