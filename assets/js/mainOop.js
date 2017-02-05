@@ -136,7 +136,11 @@ AlarmApp.prototype.initTimer = function() {
         {
           //load the music
           this.remindAudio = $("#remindAudio")[0];
+          this.remindAudio.muted = true;
           this.remindAudio.play();
+          setTimeout(function(){
+            this.remindAudio.muted = false;
+          }, 1000);
         }
         if(this.timerRunning == false)
         {
@@ -159,7 +163,11 @@ AlarmApp.prototype.initTimer = function() {
         {
           //load the music
           this.remindAudio = $("#remindAudio")[0];
+          this.remindAudio.muted = true;
           this.remindAudio.play();
+          setTimeout(function(){
+            this.remindAudio.muted = false;
+          }, 1000);
 
           //step 1: gather information
           var phaseSetId;
