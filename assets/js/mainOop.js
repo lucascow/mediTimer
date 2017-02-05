@@ -8,7 +8,7 @@ function AlarmApp ()
   this.remindAudio = $("#remindAudio")[0];
   this.timerRunning = false;
   this.timeIsUp = false;
-  this.timerCreated = false;
+  this.timerForCountDownCreated = false;
 
 }
 
@@ -130,7 +130,7 @@ AlarmApp.prototype.initTimer = function() {
     function () {
 
       //Case 1: No phase at all
-      if ($(".lu-phaseSet").length == 0)
+      if ($(".lu-phaseSet").length == 0 && this.timerForCountDownCreated == false)
       {
         if(this.timerRunning == false)
         {
@@ -147,7 +147,7 @@ AlarmApp.prototype.initTimer = function() {
       //Case 2: there are some phase
       else
       {
-        if (this.timerCreated == false) // if it is the new count
+        if (this.timerForCountDownCreated == false) // if it is the new count
         {
           //step 1: gather information
           var phaseSetId;
@@ -218,7 +218,7 @@ AlarmApp.prototype.initTimer = function() {
               }.bind(this)
           });
           this.timerRunning = true;
-          this.timerCreated = true;
+          this.timerForCountDownCreated = true;
           $("input").attr("disabled", true);
           $("button").attr("disabled", true);
           $(".primeButton").attr("disabled", false);
@@ -255,15 +255,17 @@ AlarmApp.prototype.initTimer = function() {
 AlarmApp.prototype.resetOrTimeIsUpMechanism = function()
 {
   this.timer.stop();
-  this.subTimer.stop();
-  if (this.timeIsUp == false) {
-    $("#" + this.phaseListData[0].phaseSetId).find('.lu-phaseTime').val(this.phaseListData[0].phaseSetTime);
+  if (this.timerForCountDownCreated == true) {
+    this.subTimer.stop();
+    if (this.timeIsUp == false) {
+      $("#" + this.phaseListData[0].phaseSetId).find('.lu-phaseTime').val(this.phaseListData[0].phaseSetTime);
+    }
   }
 
   $('#timeBoard').html("00:00:00");
   this.timeIsUp = false;
   this.timerRunning = false;
-  this.timerCreated = false;
+  this.timerForCountDownCreated = false;
 
   $('#startButton').removeClass('timeIsUp'); //remove class anyway
   //$('.lu-phaseSet').removeClass('lu-phaseSet-timePass');
